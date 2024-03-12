@@ -26,8 +26,8 @@ class Task(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     description = models.TextField()
-    creation_time = models.DateTimeField()
-    status = models.CharField(max_length=100, choices=STATUS_CHOICES)
+    creation_time = models.DateTimeField(auto_now=True)
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default="Pending")
 
     def __str__(self):
         return self.title

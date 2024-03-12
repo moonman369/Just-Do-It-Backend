@@ -5,3 +5,8 @@ class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = ["user", "title", "description", "creation_time", "status"]
+
+class TaskModifySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = ["user", "title", "description", "creation_time", "status"]

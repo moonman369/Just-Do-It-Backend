@@ -16,11 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import tasks_list, get_task_by_user
+from .views import tasks_list, get_task_by_user, create_or_modify_task
 # from justdoit import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('tasks/', tasks_list),
-    path('tasks/<slug:user_id>', get_task_by_user, name="user_id")
+    path('tasks/<slug:user_id>', get_task_by_user, name="user_id"),
+    path('task/<slug:user_id>', create_or_modify_task, name="user_id")
 ]
