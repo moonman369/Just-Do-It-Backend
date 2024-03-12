@@ -22,5 +22,5 @@ from .views import tasks_list, get_task_by_user
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('tasks/', tasks_list),
-    path('tasks-by-users/', get_task_by_user)
+    path('tasks/<slug:user_id>', get_task_by_user, name="user_id")
 ]
