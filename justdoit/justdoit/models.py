@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.crypto import get_random_string
-from .utils import uuid
+from .utils import uuid, uuid_task
 from django.core.validators import EmailValidator, RegexValidator
 
 class User(models.Model):
@@ -23,6 +23,7 @@ class Task(models.Model):
         ('Archived', 'Archived'),
     ]
 
+    task_id = models.CharField(primary_key=True, max_length=50, unique=True, auto_created=True, default=uuid_task())
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     description = models.TextField()
