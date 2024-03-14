@@ -4,6 +4,8 @@ from .serializers import TaskSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from .utils import uuid_task
+
 
 @api_view(['GET'])
 def get_tasks_list(request):
@@ -34,12 +36,13 @@ def get_task_detail(request, **kwargs):
     return Response(serializer.data)
 
 
-@api_view(['POST', 'PUT', 'DELETE'])
+@api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def create_or_modify_task(request, **kwargs):
     if request.method == "POST":
         print(type(request.data))
         request.data.update({"user": kwargs.get("user_id")})
-        if request.data.get("task_id"): request.data.pop("task_id")
+        request.data.update({"task_id": uuid_task()})
+        request.data.update({"status": "Pending"})
         if request.data.get("creation_time"): request.data.pop("creation_time")
         serializer = TaskSerializer(data=request.data)
         if serializer.is_valid():
