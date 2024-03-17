@@ -24,7 +24,7 @@ urlpatterns = [
     path('tasks/', get_tasks_list),
     path('tasks/<slug:user_id>', get_tasks_by_user, name="user_id"),
     path('task-detail/<slug:task_id>', get_task_detail, name="task_id"),
-    path('task/<slug:user_id>', create_or_modify_task, name="user_id"),
-    path('task/<slug:user_id>', create_or_modify_task, name="user_id"),
-    path('task/<slug:user_id>', create_or_modify_task, name="user_id")
+    path('task/<slug:id>', create_or_modify_task, name="id"),
+    path('task/<slug:id>', create_or_modify_task, name="id"),
+    path('task/<slug:id>', create_or_modify_task, name="id")
 ]
