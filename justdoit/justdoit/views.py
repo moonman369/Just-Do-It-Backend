@@ -32,12 +32,12 @@ def get_task_detail(request, **kwargs):
     try:
         task = Task.objects.get(pk=task_id)
     except Task.DoesNotExist:
-        JsonResponse(status=status.HTTP_404_NOT_FOUND)
+        return JsonResponse({"message": "Resource not found"}, status=status.HTTP_404_NOT_FOUND)
     serializer = TaskSerializer(task)
     return Response(serializer.data)
 
 
-@api_view(['GET', 'POST', 'PUT', 'DELETE'])
+@api_view(['POST', 'PUT', 'DELETE'])
 def create_or_modify_task(request, **kwargs):
     if request.method == "POST":
         # print(request.headers)
@@ -87,4 +87,14 @@ def create_or_modify_task(request, **kwargs):
         else:
             print("ELSE check")
             return Response({"message": "Invalid operation in header"}, status=status.HTTP_400_BAD_REQUEST)
+        
+    elif request.method == "DELETE":
+        task_id = kwargs.get("id")
+        try:
+            task = Task.objects.get(pk=task_id)
+        except Task.DoesNotExist:
+            return JsonResponse(status=status.HTTP_404_NOT_FOUND)
+        task.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
